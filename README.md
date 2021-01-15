@@ -1,7 +1,7 @@
 # kali-setup-scripts
 Kali Linux setup scripts for new installs
 
-Currently set up to install VSCode, Covenant, and Merlin C2 networks
+Currently set up to install VSCode, Covenant, Merlin, PEAS, and Ghidra
 
 # Usage
 
