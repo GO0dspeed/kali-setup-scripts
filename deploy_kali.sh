@@ -18,7 +18,7 @@ sudo apt-get update > /dev/null 2>&1
 
 # Install VS Code
 echo "Installing VS Code"
-sudo apt-get install -y snapd 
+sudo apt-get install -y snapd > /dev/null 2>&1
 sudo snap install --classic code
 
 # Install C2 Frameworks (Covenant and Merlin)
@@ -35,13 +35,13 @@ else
 		sudo chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg&& 
 		sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list 
 fi
-sudo apt-get install -y apt-transport-https &&
+sudo apt-get install -y apt-transport-https > /dev/null 2>&1 &&
 	sudo apt-get update > /dev/null 2>&1 && 
-	sudo apt-get install -y dotnet-sdk-3.1
+	sudo apt-get install -y dotnet-sdk-3.1 > /dev/null 2>&1
 sudo apt-get update > /dev/null 2>&1 &&
-	sudo apt-get install -y apt-transport-https &&
+	sudo apt-get install -y apt-transport-https > /dev/null 2>&1 &&
 	sudo apt-get update > /dev/null 2>&1 &&
-	sudo apt-get install -y aspnetcore-runtime-3.1
+	sudo apt-get install -y aspnetcore-runtime-3.1 > /dev/null 2>&1
 
 echo "Cloning Covenant to /opt/"
 if [[ -d /opt/Covenant ]]
@@ -59,7 +59,32 @@ then
 else
 	cd /opt/ &&
 		sudo mkdir merlin &&
-		sudo cd merlin &&
+		cd merlin &&
 		sudo wget https://github.com/Ne0nd0g/merlin/releases/download/v0.9.1-beta/merlinServer-Linux-x64.7z &&
 		sudo 7z x merlinServer-Linux-x64.7z -pmerlin
 fi
+
+# Install reverse engineering framework components (Ghidra)
+echo "Installing Ghidra"
+if [[ -d /opt/ghidra_9.2.1_PUBLIC ]]
+then
+	echo "Ghidra is already installed"
+else
+	cd /opt/ &&
+		sudo wget https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz &&
+		sudo tar -xvf amazon-corretto-11-x64-linux-jdk.tar.gz > /dev/null 2>&1 &&
+		sudo chown -R $USER amazon-corretto-11.*-linux-x64/ &&
+		sudo wget https://ghidra-sre.org/ghidra_9.2.1_PUBLIC_20201215.zip &&
+		sudo unzip ghidra_9.2.1_PUBLIC_20201215 > /dev/null 2>&1
+fi
+
+# Install privesc checking scripts
+echo "Installing Privilege Escalation Awesome Script Suite"
+if [[ -d /opt/privilege-escalation-awesome-scripts-suite ]]
+then
+	echo "PEAS is already installed"
+else
+	cd /opt/ &&
+		sudo git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
+fi
+
