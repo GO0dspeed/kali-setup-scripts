@@ -19,7 +19,10 @@ sudo apt-get update > /dev/null 2>&1
 # Install VS Code
 echo "Installing VS Code"
 sudo apt-get install -y snapd > /dev/null 2>&1
+echo "Ensuring that snapd is started"
+sudo systemctl start snapd
 sudo snap install --classic code
+sudo systemctl start apparmor
 
 # Install C2 Frameworks (Covenant and Merlin)
 echo "Beginning installation of Covenant and Merlin for C2..."
@@ -88,3 +91,29 @@ else
 		sudo git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
 fi
 
+# Install Golang
+echo "Installing GoLang"
+if go -v > /dev/null 2>&1
+then
+	echo "Go is already installed"
+else
+	sudo apt-get install -y golang-go > /dev/null 2>&1
+fi
+
+# Install gobuster
+echo "Installing GoBuster"
+if gobuster -v > /dev/null 2>&1
+then
+	echo "GoBuster is already installed"
+else
+	sudo go install github.com/OJ/gobuster/v3@latest > /dev/null 2>&1
+fi
+
+# Install docker
+echo "Installing Docker"
+if docker -v > /dev/null 2>&1
+then
+	echo "Docker already installed"
+else
+	sudo apt-get install -y docker.io > /dev/null 2>&1
+fi
