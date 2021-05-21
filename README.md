@@ -1,7 +1,7 @@
 # kali-setup-scripts
 Kali Linux setup scripts for new installs
 
-Currently set up to install VSCode, Covenant, Merlin, PEAS, and Ghidra
+Currently set up to install VSCode, Covenant, Merlin, PEAS, and Ghidra, Gobuster, and Docker
 
 # Usage
 
