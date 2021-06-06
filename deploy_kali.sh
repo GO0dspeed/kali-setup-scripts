@@ -74,9 +74,7 @@ then
 	echo "Ghidra is already installed"
 else
 	cd /opt/ &&
-		sudo apt-get install openjdk-ll-jdk &&
-		sudo tar -xvf amazon-corretto-11-x64-linux-jdk.tar.gz > /dev/null 2>&1 &&
-		sudo chown -R $USER amazon-corretto-11.*-linux-x64/ &&
+		sudo apt-get install openjdk-11-jdk &&
 		sudo wget https://ghidra-sre.org/ghidra_9.2.4_PUBLIC_20210427.zip &&
 		sudo unzip ghidra_9.2.4_PUBLIC_20210427 > /dev/null 2>&1
 fi
@@ -91,22 +89,13 @@ else
 		sudo git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
 fi
 
-# Install Golang
-echo "Installing GoLang"
-if go -v > /dev/null 2>&1
-then
-	echo "Go is already installed"
-else
-	sudo apt-get install -y golang-go > /dev/null 2>&1
-fi
-
 # Install gobuster
 echo "Installing GoBuster"
 if gobuster -v > /dev/null 2>&1
 then
 	echo "GoBuster is already installed"
 else
-	sudo go install github.com/OJ/gobuster/v3@latest > /dev/null 2>&1
+	sudo apt-get install -y gobuster > /dev/null 2>&1
 fi
 
 # Install docker
@@ -116,4 +105,13 @@ then
 	echo "Docker already installed"
 else
 	sudo apt-get install -y docker.io > /dev/null 2>&1
+fi
+
+# Install rlwrap
+echo "Installing rlwrap"
+if rlwrap -v >/dev/null 2>&1
+then
+	echo "RLWRAP already installed"
+else
+	sudo apt-get install -y rlwrap > /dev/null 2>&1
 fi
