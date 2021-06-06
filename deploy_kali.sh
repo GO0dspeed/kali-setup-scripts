@@ -74,11 +74,11 @@ then
 	echo "Ghidra is already installed"
 else
 	cd /opt/ &&
-		sudo wget https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz &&
+		sudo apt-get install openjdk-ll-jdk &&
 		sudo tar -xvf amazon-corretto-11-x64-linux-jdk.tar.gz > /dev/null 2>&1 &&
 		sudo chown -R $USER amazon-corretto-11.*-linux-x64/ &&
-		sudo wget https://ghidra-sre.org/ghidra_9.2.1_PUBLIC_20201215.zip &&
-		sudo unzip ghidra_9.2.1_PUBLIC_20201215 > /dev/null 2>&1
+		sudo wget https://ghidra-sre.org/ghidra_9.2.4_PUBLIC_20210427.zip &&
+		sudo unzip ghidra_9.2.4_PUBLIC_20210427 > /dev/null 2>&1
 fi
 
 # Install privesc checking scripts
