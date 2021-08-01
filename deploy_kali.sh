@@ -42,8 +42,6 @@ sudo apt-get install -y apt-transport-https > /dev/null 2>&1 &&
 	sudo apt-get update > /dev/null 2>&1 && 
 	sudo apt-get install -y dotnet-sdk-3.1 > /dev/null 2>&1
 sudo apt-get update > /dev/null 2>&1 &&
-	sudo apt-get install -y apt-transport-https > /dev/null 2>&1 &&
-	sudo apt-get update > /dev/null 2>&1 &&
 	sudo apt-get install -y aspnetcore-runtime-3.1 > /dev/null 2>&1
 
 echo "Cloning Covenant to /opt/"
@@ -63,19 +61,19 @@ else
 	cd /opt/ &&
 		sudo mkdir merlin &&
 		cd merlin &&
-		sudo wget https://github.com/Ne0nd0g/merlin/releases/download/v0.9.1-beta/merlinServer-Linux-x64.7z &&
-		sudo 7z x merlinServer-Linux-x64.7z -pmerlin
+		sudo wget https://github.com/Ne0nd0g/merlin/releases/download/v1.0.1/merlinServer-Linux-x64.7z &&
+		sudo 7z x merlinServer-Linux-x64.7z -p merlin
 fi
 
 # Install reverse engineering framework components (Ghidra)
 echo "Installing Ghidra"
-if [[ -d /opt/ghidra_9.2.1_PUBLIC ]]
+if [[ -d /opt/ghidra_10.0.1_PUBLIC ]]
 then
 	echo "Ghidra is already installed"
 else
 	cd /opt/ &&
 		sudo apt-get install openjdk-11-jdk &&
-		sudo wget https://ghidra-sre.org/ghidra_9.2.4_PUBLIC_20210427.zip &&
+		sudo wget https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.0.1_build/ghidra_10.0.1_PUBLIC_20210708.zip &&
 		sudo unzip ghidra_9.2.4_PUBLIC_20210427 > /dev/null 2>&1
 fi
 
@@ -91,7 +89,7 @@ fi
 
 # Install gobuster
 echo "Installing GoBuster"
-if gobuster -v > /dev/null 2>&1
+if [[ gobuster -v ]]
 then
 	echo "GoBuster is already installed"
 else
@@ -100,18 +98,73 @@ fi
 
 # Install docker
 echo "Installing Docker"
-if docker -v > /dev/null 2>&1
+if [[ docker -v ]]
 then
 	echo "Docker already installed"
 else
 	sudo apt-get install -y docker.io > /dev/null 2>&1
 fi
 
+# Install docker compose
+if [[ docker-compose -v ]]
+then
+	echo "Docker compose already installed"
+else
+	sudo apt-get install -y docker-compose > /dev/null 2>&1
+fi
+
 # Install rlwrap
 echo "Installing rlwrap"
-if rlwrap -v >/dev/null 2>&1
+if [[ rlwrap ]]
 then
 	echo "RLWRAP already installed"
 else
 	sudo apt-get install -y rlwrap > /dev/null 2>&1
+fi
+
+# Install evil-winrm
+if [[ evil-winrm -v ]]
+then
+	echo "Evil-winrm is installed"
+else
+	sudo gem install -y evil-winrm > /dev/null 2>&1
+fi
+
+# Intall Bloodhound and Neo4j
+# Neo4j
+echo "Installing Bloodhound"
+if [[ neo4j -v ]]
+then
+	echo "Neo4j already installed, installing Bloodhound GUI"
+else
+	sudo apt-get install -y neo4j > /dev/null 2>&1
+fi
+
+# Bloodhound
+if [[ bloodhound -v ]]
+then
+	echo "Bloodhound GUI is installed"
+else
+	sudo apt-get install -y bloodhound > /dev/null 2>&1
+fi
+
+# Install Ghostwriter
+if [[ docker -ps | grep ghostwriter_ ]]
+then
+	echo "Ghostwriter is installed and running in Docker"
+else
+	echo "Cloning Ghostwriter repo"
+	cd /opt/ &&
+		git clone https://github.com/GhostManager/Ghostwriter.git
+	sudo mkdir /opt/Ghostwriter/.envs
+	sudo cp -r /opt/Ghostwriter/.envs_template/* /opt/Ghostwriter/.envs
+	echo "Starting docker containers"
+	docker-compose -f /opt/Ghostwriter/local.yml stop
+	docker-compose -f /opt/Ghostwriter/local.yml rm -f
+	docker-compose -f /opt/Ghostwriter/local.yml build
+	docker-compose -f /opt/Ghostwriter/local.yml up -d
+	echo "Waiting 60 seconds"
+	sleep 60
+	echo "Starting Ghostwriter database"
+	docker-compose -f local.yml run --rm django /seed_data
 fi
