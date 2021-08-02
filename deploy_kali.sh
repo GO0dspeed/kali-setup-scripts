@@ -31,7 +31,7 @@ if [[ -f /etc/apt/trusted.gpg.d/microsoft.asc.gpg && /etc/apt/sources.list.d/mic
 then
 	echo "Microsoft package signing key already installed..."
 else
-	sudo wget -O - https://packages.microsoft.com/keys/microsoft.asc > /dev/null 2>&1 | sudo gpg --dearmor > microsoft.asc.gpg
+	sudo wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor > microsoft.asc.gpg > /dev/null 2>&1
 	sudo mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
 	sudo wget https://packages.microsoft.com/config/debian/9/prod.list > /dev/null 2>&1
 	sudo mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
