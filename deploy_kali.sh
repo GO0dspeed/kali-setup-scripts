@@ -72,7 +72,7 @@ then
 	echo "Ghidra is already installed"
 else
 	cd /opt/ &&
-		sudo apt-get install openjdk-11-jdk &&
+		sudo apt-get install -y openjdk-11-jdk &&
 		sudo wget https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.0.1_build/ghidra_10.0.1_PUBLIC_20210708.zip &&
 		sudo unzip ghidra_9.2.4_PUBLIC_20210427 > /dev/null 2>&1
 fi
