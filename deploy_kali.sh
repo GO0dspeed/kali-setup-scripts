@@ -72,7 +72,7 @@ then
 	echo "Mythic already installed"
 else
 	echo "Cloning Mythic"
-	sudo git clone https://github.com/its-a-feature/Mythic /opt/ > /dev/null 2>&1
+	sudo git clone https://github.com/its-a-feature/Mythic.git /opt/ > /dev/null 2>&1
 fi
 
 # Install reverse engineering framework components (Ghidra)
