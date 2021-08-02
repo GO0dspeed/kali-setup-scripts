@@ -22,6 +22,7 @@ if command -v code-oss > /dev/null 2>&1
 then
 	echo "Code is already installed"
 else
+	echo "Installing Code-OSS"
 	sudo apt-get install -y code-oss > /dev/null 2>&1
 fi
 
