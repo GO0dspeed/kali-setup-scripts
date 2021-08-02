@@ -80,17 +80,10 @@ if [[ -d /opt/ghidra_10.0.1_PUBLIC_20210708 ]]
 then
 	echo "Ghidra is already installed"
 else
-<<<<<<< HEAD
 	echo "Installing Ghidra"
 	sudo apt-get install openjdk-11-jdk > /dev/null 2>&1
 	sudo wget -P /opt/ https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.0.1_build/ghidra_10.0.1_PUBLIC_20210708.zip > /dev/null 2>&1
 	sudo unzip /opt/ghidra_10.0.1_PUBLIC_20210708.zip -d /opt/ghidra_10.0.1_PUBLIC_20210708 > /dev/null 2>&1
-=======
-	cd /opt/ &&
-		sudo apt-get install -y openjdk-11-jdk &&
-		sudo wget https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.0.1_build/ghidra_10.0.1_PUBLIC_20210708.zip &&
-		sudo unzip ghidra_9.2.4_PUBLIC_20210427 > /dev/null 2>&1
->>>>>>> 033d02f54eaf5494fd662e1ac2a409ab9964b031
 fi
 
 # Install privesc checking scripts
