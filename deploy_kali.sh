@@ -193,12 +193,7 @@ else
 	echo "Waiting 60 seconds"
 	sleep 60
 	echo "Starting Ghostwriter database"
-<<<<<<< HEAD
 	sudo docker-compose -f local.yml run --rm django /seed_data > /dev/null 2>&1
 fi
 
 echo "Installation complete!"
-=======
-	docker-compose -f local.yml run --rm django /seed_data
-fi
->>>>>>> 033d02f54eaf5494fd662e1ac2a409ab9964b031
